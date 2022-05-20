@@ -1,0 +1,7 @@
+[SPRITES]
+Flower	17	0	33	16	1	0
+[/]
+
+[HITBOXES]
+-8	-8	16	16
+[/]
