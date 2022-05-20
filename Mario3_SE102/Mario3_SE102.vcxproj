@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b811ce09-fbaa-46a3-b854-3f5f1e062715}</ProjectGuid>
+    <RootNamespace>SMB3v2C</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Mario3_SE102</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\assets\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d10.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;winmm.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-system-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\assets\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\File\Git Repos\SuperMarioBros3\SMB3_v2_C++\assets\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\File\Git Repos\SuperMarioBros3\SMB3_v2_C++\assets\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d10.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;winmm.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-system.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="assets\classes\AnimatedSprite.cpp" />
+    <ClCompile Include="assets\classes\audio\AudioService.cpp" />
+    <ClCompile Include="assets\classes\audio\NullAudio.cpp" />
+    <ClCompile Include="assets\classes\audio\SFMLAudio.cpp" />
+    <ClCompile Include="assets\classes\Background.cpp" />
+    <ClCompile Include="assets\classes\block\Door.cpp" />
+    <ClCompile Include="assets\classes\block\LavaPool.cpp" />
+    <ClCompile Include="assets\classes\block\MaskTile.cpp" />
+    <ClCompile Include="assets\classes\block\PBlock.cpp" />
+    <ClCompile Include="assets\classes\block\Portal.cpp" />
+    <ClCompile Include="assets\classes\block\ShinyBrick.cpp" />
+    <ClCompile Include="assets\classes\block\Trigger.cpp" />
+    <ClCompile Include="assets\classes\boss\FortressBoss.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossAttackState.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossHurtState.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossIdleState.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossIntroState.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossRunState.cpp" />
+    <ClCompile Include="assets\classes\boss\state\BossState.cpp" />
+    <ClCompile Include="assets\classes\Camera.cpp" />
+    <ClCompile Include="assets\classes\effect\BrickDebris.cpp" />
+    <ClCompile Include="assets\classes\effect\OrbEffect.cpp" />
+    <ClCompile Include="assets\classes\effect\ScorePopUp.cpp" />
+    <ClCompile Include="assets\classes\Entity.cpp" />
+    <ClCompile Include="assets\classes\Game.cpp" />
+    <ClCompile Include="assets\classes\Device.cpp" />
+    <ClCompile Include="assets\classes\GameObject.cpp" />
+    <ClCompile Include="assets\classes\GlobalUtil.cpp" />
+    <ClCompile Include="assets\classes\Hitbox.cpp" />
+    <ClCompile Include="assets\classes\intro\BuzzyBeetle.cpp" />
+    <ClCompile Include="assets\classes\intro\Curtain.cpp" />
+    <ClCompile Include="assets\classes\intro\GameIcon.cpp" />
+    <ClCompile Include="assets\classes\intro\GameLogo.cpp" />
+    <ClCompile Include="assets\classes\intro\PropFastKoopa.cpp" />
+    <ClCompile Include="assets\classes\intro\PropKoopaShell.cpp" />
+    <ClCompile Include="assets\classes\intro\PropNormalKoopa.cpp" />
+    <ClCompile Include="assets\classes\intro\PropPlant.cpp" />
+    <ClCompile Include="assets\classes\intro\PropPlayer.cpp" />
+    <ClCompile Include="assets\classes\intro\SelectText.cpp" />
+    <ClCompile Include="assets\classes\item\BonusItem.cpp" />
+    <ClCompile Include="assets\classes\item\Coin.cpp" />
+    <ClCompile Include="assets\classes\item\Flower.cpp" />
+    <ClCompile Include="assets\classes\item\Leaf.cpp" />
+    <ClCompile Include="assets\classes\item\Mushroom.cpp" />
+    <ClCompile Include="assets\classes\item\Orb.cpp" />
+    <ClCompile Include="assets\classes\item\Star.cpp" />
+    <ClCompile Include="assets\classes\map\Cactus.cpp" />
+    <ClCompile Include="assets\classes\map\HammerBro.cpp" />
+    <ClCompile Include="assets\classes\map\HelpText.cpp" />
+    <ClCompile Include="assets\classes\npc\BoomerBro.cpp" />
+    <ClCompile Include="assets\classes\npc\DryBones.cpp" />
+    <ClCompile Include="assets\classes\npc\Goomba.cpp" />
+    <ClCompile Include="assets\classes\npc\Koopa.cpp" />
+    <ClCompile Include="assets\classes\npc\MovingCeiling.cpp" />
+    <ClCompile Include="assets\classes\npc\Paragoomba.cpp" />
+    <ClCompile Include="assets\classes\npc\Parakoopa.cpp" />
+    <ClCompile Include="assets\classes\npc\PiranaPlant.cpp" />
+    <ClCompile Include="assets\classes\npc\Rotodisc.cpp" />
+    <ClCompile Include="assets\classes\npc\VenusPlant.cpp" />
+    <ClCompile Include="assets\classes\Pipeline.cpp" />
+    <ClCompile Include="assets\classes\player\HUD.cpp" />
+    <ClCompile Include="assets\classes\player\Player.cpp" />
+    <ClCompile Include="assets\classes\player\state\CrouchState.cpp" />
+    <ClCompile Include="assets\classes\player\state\FallState.cpp" />
+    <ClCompile Include="assets\classes\player\state\IdleState.cpp" />
+    <ClCompile Include="assets\classes\player\state\JumpState.cpp" />
+    <ClCompile Include="assets\classes\player\state\MapState.cpp" />
+    <ClCompile Include="assets\classes\player\state\PlayerState.cpp" />
+    <ClCompile Include="assets\classes\player\state\RunState.cpp" />
+    <ClCompile Include="assets\classes\player\state\ThrowState.cpp" />
+    <ClCompile Include="assets\classes\player\state\WagState.cpp" />
+    <ClCompile Include="assets\classes\player\Tail.cpp" />
+    <ClCompile Include="assets\classes\projectile\Boomerang.cpp" />
+    <ClCompile Include="assets\classes\projectile\Fireball.cpp" />
+    <ClCompile Include="assets\classes\projectile\Podoboo.cpp" />
+    <ClCompile Include="assets\classes\scene\Scene.cpp" />
+    <ClCompile Include="assets\classes\scene\SceneIntro.cpp" />
+    <ClCompile Include="assets\classes\scene\SceneMap.cpp" />
+    <ClCompile Include="assets\classes\scene\ScenePlay.cpp" />
+    <ClCompile Include="assets\classes\secret\Dialga.cpp" />
+    <ClCompile Include="assets\classes\secret\Giratina.cpp" />
+    <ClCompile Include="assets\classes\secret\Palkia.cpp" />
+    <ClCompile Include="assets\classes\spatial\Grid.cpp" />
+    <ClCompile Include="assets\classes\Tile.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="assets\classes\SceneManager.cpp" />
+    <ClCompile Include="assets\classes\Sprite.cpp" />
+    <ClCompile Include="assets\classes\block\QuestionBlock.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="assets\classes\AnimatedSprite.h" />
+    <ClInclude Include="assets\classes\audio\Audio.h" />
+    <ClInclude Include="assets\classes\audio\AudioService.h" />
+    <ClInclude Include="assets\classes\audio\NullAudio.h" />
+    <ClInclude Include="assets\classes\audio\SFMLAudio.h" />
+    <ClInclude Include="assets\classes\Background.h" />
+    <ClInclude Include="assets\classes\block\Door.h" />
+    <ClInclude Include="assets\classes\block\LavaPool.h" />
+    <ClInclude Include="assets\classes\block\MaskTile.h" />
+    <ClInclude Include="assets\classes\block\PBlock.h" />
+    <ClInclude Include="assets\classes\block\Portal.h" />
+    <ClInclude Include="assets\classes\block\QuestionBlock.h" />
+    <ClInclude Include="assets\classes\block\ShinyBrick.h" />
+    <ClInclude Include="assets\classes\block\Trigger.h" />
+    <ClInclude Include="assets\classes\boss\FortressBoss.h" />
+    <ClInclude Include="assets\classes\boss\state\BossAttackState.h" />
+    <ClInclude Include="assets\classes\boss\state\BossHurtState.h" />
+    <ClInclude Include="assets\classes\boss\state\BossIdleState.h" />
+    <ClInclude Include="assets\classes\boss\state\BossIntroState.h" />
+    <ClInclude Include="assets\classes\boss\state\BossRunState.h" />
+    <ClInclude Include="assets\classes\boss\state\BossState.h" />
+    <ClInclude Include="assets\classes\Camera.h" />
+    <ClInclude Include="assets\classes\effect\BrickDebris.h" />
+    <ClInclude Include="assets\classes\effect\OrbEffect.h" />
+    <ClInclude Include="assets\classes\effect\ScorePopUp.h" />
+    <ClInclude Include="assets\classes\Entity.h" />
+    <ClInclude Include="assets\classes\Game.h" />
+    <ClInclude Include="assets\classes\GameObject.h" />
+    <ClInclude Include="assets\classes\GlobalUtil.h" />
+    <ClInclude Include="assets\classes\Device.h" />
+    <ClInclude Include="assets\classes\Hitbox.h" />
+    <ClInclude Include="assets\classes\intro\BuzzyBeetle.h" />
+    <ClInclude Include="assets\classes\intro\Curtain.h" />
+    <ClInclude Include="assets\classes\intro\GameIcon.h" />
+    <ClInclude Include="assets\classes\intro\GameLogo.h" />
+    <ClInclude Include="assets\classes\intro\PropFastKoopa.h" />
+    <ClInclude Include="assets\classes\intro\PropKoopaShell.h" />
+    <ClInclude Include="assets\classes\intro\PropNormalKoopa.h" />
+    <ClInclude Include="assets\classes\intro\PropPlant.h" />
+    <ClInclude Include="assets\classes\intro\PropPlayer.h" />
+    <ClInclude Include="assets\classes\intro\SelectText.h" />
+    <ClInclude Include="assets\classes\item\BonusItem.h" />
+    <ClInclude Include="assets\classes\item\Coin.h" />
+    <ClInclude Include="assets\classes\item\Flower.h" />
+    <ClInclude Include="assets\classes\item\Leaf.h" />
+    <ClInclude Include="assets\classes\item\Mushroom.h" />
+    <ClInclude Include="assets\classes\EntityList.h" />
+    <ClInclude Include="assets\classes\item\Orb.h" />
+    <ClInclude Include="assets\classes\item\Star.h" />
+    <ClInclude Include="assets\classes\map\Cactus.h" />
+    <ClInclude Include="assets\classes\map\HammerBro.h" />
+    <ClInclude Include="assets\classes\map\HelpText.h" />
+    <ClInclude Include="assets\classes\npc\BoomerBro.h" />
+    <ClInclude Include="assets\classes\npc\DryBones.h" />
+    <ClInclude Include="assets\classes\npc\Goomba.h" />
+    <ClInclude Include="assets\classes\npc\Koopa.h" />
+    <ClInclude Include="assets\classes\npc\MovingCeiling.h" />
+    <ClInclude Include="assets\classes\npc\Paragoomba.h" />
+    <ClInclude Include="assets\classes\npc\Parakoopa.h" />
+    <ClInclude Include="assets\classes\npc\PiranaPlant.h" />
+    <ClInclude Include="assets\classes\npc\Rotodisc.h" />
+    <ClInclude Include="assets\classes\npc\VenusPlant.h" />
+    <ClInclude Include="assets\classes\Pipeline.h" />
+    <ClInclude Include="assets\classes\player\HUD.h" />
+    <ClInclude Include="assets\classes\player\Player.h" />
+    <ClInclude Include="assets\classes\player\state\CrouchState.h" />
+    <ClInclude Include="assets\classes\player\state\FallState.h" />
+    <ClInclude Include="assets\classes\player\state\IdleState.h" />
+    <ClInclude Include="assets\classes\player\state\JumpState.h" />
+    <ClInclude Include="assets\classes\player\state\MapState.h" />
+    <ClInclude Include="assets\classes\player\state\PlayerState.h" />
+    <ClInclude Include="assets\classes\player\state\RunState.h" />
+    <ClInclude Include="assets\classes\player\state\ThrowState.h" />
+    <ClInclude Include="assets\classes\player\state\WagState.h" />
+    <ClInclude Include="assets\classes\player\Tail.h" />
+    <ClInclude Include="assets\classes\projectile\Boomerang.h" />
+    <ClInclude Include="assets\classes\projectile\Fireball.h" />
+    <ClInclude Include="assets\classes\projectile\Podoboo.h" />
+    <ClInclude Include="assets\classes\scene\Scene.h" />
+    <ClInclude Include="assets\classes\SceneManager.h" />
+    <ClInclude Include="assets\classes\scene\SceneIntro.h" />
+    <ClInclude Include="assets\classes\scene\SceneMap.h" />
+    <ClInclude Include="assets\classes\scene\ScenePlay.h" />
+    <ClInclude Include="assets\classes\secret\Dialga.h" />
+    <ClInclude Include="assets\classes\secret\Giratina.h" />
+    <ClInclude Include="assets\classes\secret\Palkia.h" />
+    <ClInclude Include="assets\classes\spatial\Grid.h" />
+    <ClInclude Include="assets\classes\Sprite.h" />
+    <ClInclude Include="assets\classes\Tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets" Condition="Exists('..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets'))" />
+  </Target>
+</Project>
