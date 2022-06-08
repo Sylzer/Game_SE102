@@ -53,6 +53,9 @@ void ScenePlay::OnKeyDown(int keyCode) {
 			}
 			_player->SetHealth(4);
 			break;
+		case DIK_5:
+				_player->SetPosition({ _player->GetPosition().x+300, _player->GetPosition().y - _player->GetBoxHeight(1) });
+			
 	}
 
 	_player->OnKeyDownGame(keyCode);
@@ -188,242 +191,185 @@ void ScenePlay::Update(DWORD deltaTime) {
 
 			//Entities events
 			switch (entity->GetObjectType()) {
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAGOOMBA:
-					{
-						Paragoomba* paragoomba = dynamic_cast<Paragoomba*>(entity);
-						if (paragoomba->IsWalking() && paragoomba->GetHealth() == 2) {
-							//Mario is on the right side
-							if (paragoomba->GetPosition().x - _player->GetPosition().x < 0.0f) {
-								paragoomba->SetNormal({ -1.0f, 0.0f });
-							}
-							else {
-								paragoomba->SetNormal({ 1.0f, 0.0f });
-							}
-						}
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAGOOMBA:
+			{
+				Paragoomba* paragoomba = dynamic_cast<Paragoomba*>(entity);
+				if (paragoomba->IsWalking() && paragoomba->GetHealth() == 2) {
+					//Mario is on the right side
+					if (paragoomba->GetPosition().x - _player->GetPosition().x < 0.0f) {
+						paragoomba->SetNormal({ -1.0f, 0.0f });
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_KOOPA:
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAKOOPA:
-					{
-						Koopa* koopa = dynamic_cast<Koopa*>(entity);
-						if (koopa->GetHealth() == 2) {
-							//Mario is on the right side
-							if (koopa->GetPosition().x - _player->GetPosition().x < 0.0f) {
-								koopa->SetNormal({ -1.0f, 0.0f });
-							}
-							else {
-								koopa->SetNormal({ 1.0f, 0.0f });
-							}
-						}
+					else {
+						paragoomba->SetNormal({ 1.0f, 0.0f });
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_PIRANHAPLANT:
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSPLANT:
-					{
-						PiranaPlant* piranaPlant = dynamic_cast<PiranaPlant*>(entity);
-						piranaPlant->ComparePlayerPosToSelf(_player->GetPosition());
-						//Mario is on the right side
-						if (piranaPlant->GetPosition().x - _player->GetPosition().x < 0.0f) {
-							piranaPlant->SetScale({ -1.0f, piranaPlant->GetScale().y });
-						}
-						else {
-							piranaPlant->SetScale({ 1.0f, piranaPlant->GetScale().y });
-						}
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_KOOPA:
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAKOOPA:
+			{
+				Koopa* koopa = dynamic_cast<Koopa*>(entity);
+				if (koopa->GetHealth() == 2) {
+					//Mario is on the right side
+					if (koopa->GetPosition().x - _player->GetPosition().x < 0.0f) {
+						koopa->SetNormal({ -1.0f, 0.0f });
+					}
+					else {
+						koopa->SetNormal({ 1.0f, 0.0f });
+					}
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PIRANHAPLANT:
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSPLANT:
+			{
+				PiranaPlant* piranaPlant = dynamic_cast<PiranaPlant*>(entity);
+				piranaPlant->ComparePlayerPosToSelf(_player->GetPosition());
+				//Mario is on the right side
+				if (piranaPlant->GetPosition().x - _player->GetPosition().x < 0.0f) {
+					piranaPlant->SetScale({ -1.0f, piranaPlant->GetScale().y });
+				}
+				else {
+					piranaPlant->SetScale({ 1.0f, piranaPlant->GetScale().y });
+				}
 
-						//Mario is below
-						if (piranaPlant->GetPosition().y - _player->GetPosition().y < 0.0f) {
-							piranaPlant->SetNormal({ -1.0f, piranaPlant->GetNormal().y });
-						}
-						else {
-							piranaPlant->SetNormal({ 1.0f, piranaPlant->GetNormal().y });
-						}
+				//Mario is below
+				if (piranaPlant->GetPosition().y - _player->GetPosition().y < 0.0f) {
+					piranaPlant->SetNormal({ -1.0f, piranaPlant->GetNormal().y });
+				}
+				else {
+					piranaPlant->SetNormal({ 1.0f, piranaPlant->GetNormal().y });
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_DRYBONES:
+			{
+				DryBones* dryBones = dynamic_cast<DryBones*>(entity);
+				if (dryBones->GetHealth() == 2) {
+					//Mario is on the right side
+					if (dryBones->GetPosition().x - _player->GetPosition().x < 0.0f) {
+						dryBones->SetScale({ -1.0f, dryBones->GetScale().y });
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_DRYBONES:
-					{
-						DryBones* dryBones = dynamic_cast<DryBones*>(entity);
-						if (dryBones->GetHealth() == 2) {
-							//Mario is on the right side
-							if (dryBones->GetPosition().x - _player->GetPosition().x < 0.0f) {
-								dryBones->SetScale({ -1.0f, dryBones->GetScale().y });
-							}
-							else {
-								dryBones->SetScale({ 1.0f, dryBones->GetScale().y });
-							}
-						}
+					else {
+						dryBones->SetScale({ 1.0f, dryBones->GetScale().y });
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL:
-					{
-						const float OFFSET = 4.0f;
-						Tail* tail = dynamic_cast<Tail*>(entity);
-						tail->SetPosition({
-							_player->GetPosition().x, 
-							_player->IsAttacking() ? _player->GetPosition().y + OFFSET : 0.0f
-							}
-						);
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL:
+			{
+				const float OFFSET = 4.0f;
+				Tail* tail = dynamic_cast<Tail*>(entity);
+				tail->SetPosition({
+					_player->GetPosition().x,
+					_player->IsAttacking() ? _player->GetPosition().y + OFFSET : 0.0f
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_GREENMUSHROOM:
-					{
-						Mushroom* mushroom = dynamic_cast<Mushroom*>(entity);
-						if (mushroom->IsEmerging()) {
-							//Mario is on the right side
-							if (mushroom->GetPosition().x - _player->GetPosition().x < 0.0f) {
-								mushroom->SetNormal({ 1.0f, 1.0f });
-							}
-							else {
-								mushroom->SetNormal({ -1.0f, 1.0f });
-							}
-						}
+				);
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_GREENMUSHROOM:
+			{
+				Mushroom* mushroom = dynamic_cast<Mushroom*>(entity);
+				if (mushroom->IsEmerging()) {
+					//Mario is on the right side
+					if (mushroom->GetPosition().x - _player->GetPosition().x < 0.0f) {
+						mushroom->SetNormal({ 1.0f, 1.0f });
 					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
-					{
-						const std::vector<D3DXCOLOR> colors = { 
-							D3DXCOLOR(70 / 255.0f, 199 / 255.0f, 78 / 255.0f, 1.0f), //green
-							D3DXCOLOR(142 / 255.0f, 145 / 255.0f, 255 / 255.0f, 1.0f), //purple
-							D3DXCOLOR(255 / 255.0f, 136 / 255.0f, 122 / 255.0f, 1.0f), //orange
-							D3DXCOLOR(255 / 255.0f, 204 / 255.0f, 198 / 255.0f, 1.0f), //peach
-						};
+					else {
+						mushroom->SetNormal({ -1.0f, 1.0f });
+					}
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
+			{
+				const std::vector<D3DXCOLOR> colors = {
+					D3DXCOLOR(70 / 255.0f, 199 / 255.0f, 78 / 255.0f, 1.0f), //green
+					D3DXCOLOR(142 / 255.0f, 145 / 255.0f, 255 / 255.0f, 1.0f), //purple
+					D3DXCOLOR(255 / 255.0f, 136 / 255.0f, 122 / 255.0f, 1.0f), //orange
+					D3DXCOLOR(255 / 255.0f, 204 / 255.0f, 198 / 255.0f, 1.0f), //peach
+				};
 
-						Orb* orb = dynamic_cast<Orb*>(entity);
-						if (orb->tookDamage) {
-							std::random_device device;
-							std::mt19937 rng(device());
-							std::uniform_int_distribution<std::mt19937::result_type> dist(0, colors.size() - 1);
+				Orb* orb = dynamic_cast<Orb*>(entity);
+				if (orb->tookDamage) {
+					std::random_device device;
+					std::mt19937 rng(device());
+					std::uniform_int_distribution<std::mt19937::result_type> dist(0, colors.size() - 1);
 
-							_backgroundColor = colors.at(dist(rng));
-						}
-					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_QUESTIONBLOCK:
-					{
-						QuestionBlock* questionBlock = dynamic_cast<QuestionBlock*>(entity);
-						if (questionBlock->tookDamage) {
-							AddEntityToScene(questionBlock->SpawnItem(_player->GetHealth()));
-						}
-					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_SHINYBRICK:
-					{
-						ShinyBrick* shinyBrick = dynamic_cast<ShinyBrick*>(entity);
-						if (shinyBrick->tookDamage) {
-							AddEntityToScene(shinyBrick->SpawnItem());
-						}
-						else if (shinyBrick->GetHealth() == -1) {
-							const float BOUNCE_SPEED_0 = 0.28f;
-							const float BOUNCE_SPEED_1 = 0.18f;
-							const float RUN_SPEED = 0.08f;
-							const float OFFSET = 10.0f;
+					_backgroundColor = colors.at(dist(rng));
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_QUESTIONBLOCK:
+			{
+				QuestionBlock* questionBlock = dynamic_cast<QuestionBlock*>(entity);
+				if (questionBlock->tookDamage) {
+					AddEntityToScene(questionBlock->SpawnItem(_player->GetHealth()));
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_SHINYBRICK:
+			{
+				ShinyBrick* shinyBrick = dynamic_cast<ShinyBrick*>(entity);
+				if (shinyBrick->tookDamage) {
+					AddEntityToScene(shinyBrick->SpawnItem());
+				}
+				else if (shinyBrick->GetHealth() == -1) {
+					const float BOUNCE_SPEED_0 = 0.28f;
+					const float BOUNCE_SPEED_1 = 0.18f;
+					const float RUN_SPEED = 0.08f;
+					const float OFFSET = 10.0f;
 
-							//Top left
-							auto debris = shinyBrick->SpawnDebris();
-							debris->SetVelocity({ -RUN_SPEED, -BOUNCE_SPEED_0 });
-							AddEntityToScene(debris);
-							//Top right
-							debris = shinyBrick->SpawnDebris();
-							debris->SetScale({ -1.0f, 1.0f });
-							debris->SetVelocity({ RUN_SPEED, -BOUNCE_SPEED_0 });
-							AddEntityToScene(debris);
-							//Bottom left
-							debris = shinyBrick->SpawnDebris();
-							debris->SetVelocity({ -RUN_SPEED, -BOUNCE_SPEED_1 });
-							debris->SetPosition({ debris->GetPosition().x, debris->GetPosition().y + OFFSET });
-							AddEntityToScene(debris);
-							//Bottom right
-							debris = shinyBrick->SpawnDebris();
-							debris->SetScale({ -1.0f, 1.0f });
-							debris->SetVelocity({ RUN_SPEED, -BOUNCE_SPEED_1 });
-							debris->SetPosition({ debris->GetPosition().x, debris->GetPosition().y + OFFSET });
-							AddEntityToScene(debris);
-						}
-					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
-					{
-						PBlock* pBlock = dynamic_cast<PBlock*>(entity);
-						if (pBlock->IsActivated() && pBlock->tookDamage) {
-							AudioService::GetAudio().StopAudio(static_cast<AudioType>(_currentThemeID));
-							AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_STAGE_PCOIN);
-						}
-						else if (pBlock->hasEnded) {
-							pBlock->hasEnded = false;
+					//Top left
+					auto debris = shinyBrick->SpawnDebris();
+					debris->SetVelocity({ -RUN_SPEED, -BOUNCE_SPEED_0 });
+					AddEntityToScene(debris);
+					//Top right
+					debris = shinyBrick->SpawnDebris();
+					debris->SetScale({ -1.0f, 1.0f });
+					debris->SetVelocity({ RUN_SPEED, -BOUNCE_SPEED_0 });
+					AddEntityToScene(debris);
+					//Bottom left
+					debris = shinyBrick->SpawnDebris();
+					debris->SetVelocity({ -RUN_SPEED, -BOUNCE_SPEED_1 });
+					debris->SetPosition({ debris->GetPosition().x, debris->GetPosition().y + OFFSET });
+					AddEntityToScene(debris);
+					//Bottom right
+					debris = shinyBrick->SpawnDebris();
+					debris->SetScale({ -1.0f, 1.0f });
+					debris->SetVelocity({ RUN_SPEED, -BOUNCE_SPEED_1 });
+					debris->SetPosition({ debris->GetPosition().x, debris->GetPosition().y + OFFSET });
+					AddEntityToScene(debris);
+				}
+			}
+			break;
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
+			{
+				PBlock* pBlock = dynamic_cast<PBlock*>(entity);
+				if (pBlock->IsActivated() && pBlock->tookDamage) {
+					AudioService::GetAudio().StopAudio(static_cast<AudioType>(_currentThemeID));
+					AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_STAGE_PCOIN);
+				}
+				else if (pBlock->hasEnded) {
+					pBlock->hasEnded = false;
 
-							AudioService::GetAudio().StopAudio(AudioType::AUDIO_TYPE_STAGE_PCOIN);
-							AudioService::GetAudio().PlayAudio(static_cast<AudioType>(_currentThemeID), true, _pitch);
-						}
-					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_FORTRESSBOSS:
-					{
-						FortressBoss* fortressBoss = dynamic_cast<FortressBoss*>(entity);
-						if (fortressBoss->GetHealth() > 0) {
-							//Mario is on the right side
-							if (fortressBoss->GetPosition().x - _player->GetPosition().x < 0.0f) {
-								fortressBoss->SetNormal({ 1.0f, 1.0f });
-							}
-							else {
-								fortressBoss->SetNormal({ -1.0f, 1.0f });
-							}
-						}
+					AudioService::GetAudio().StopAudio(AudioType::AUDIO_TYPE_STAGE_PCOIN);
+					AudioService::GetAudio().PlayAudio(static_cast<AudioType>(_currentThemeID), true, _pitch);
+				}
+			}
+			break;
 
-						if (fortressBoss->GetHealth() <= 0 && !fortressBoss->IsInvulnerable()) {
-							const float BOUNCE_SPEED = 0.04f;
-							auto orb = fortressBoss->SpawnOrb();
-							orb->SetVelocity({ 0.0f, -BOUNCE_SPEED });
-							AddEntityToScene(orb);
+			case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
+			{
+				Trigger* trigger = dynamic_cast<Trigger*>(entity);
+				if (trigger->triggered) {
+					trigger->triggered = false;
 
-							const float OFFSET = 8.0f;
-							//		*
-							//	*		*
-							//*		o		*
-							//	*		*
-							//		*
-							auto effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ 0.0f, -1.0f });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ -1.0f, -1.0f });
-							effect->SetPosition({ effect->GetPosition().x + OFFSET, effect->GetPosition().y + OFFSET });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ 1.0f, -1.0f });
-							effect->SetPosition({ effect->GetPosition().x - OFFSET, effect->GetPosition().y + OFFSET });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ -1.0f, 0.0f });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ 1.0f, 0.0f });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ -1.0f, 1.0f });
-							effect->SetPosition({ effect->GetPosition().x + OFFSET, effect->GetPosition().y - OFFSET });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ 1.0f, 1.0f });
-							effect->SetPosition({ effect->GetPosition().x - OFFSET, effect->GetPosition().y - OFFSET });
-							AddEntityToScene(effect);
-							effect = fortressBoss->SpawnOrbEffect();
-							effect->SetNormal({ 0.0f, 1.0f });
-							AddEntityToScene(effect);
-
-							fortressBoss->SetPosition({ fortressBoss->GetPosition().x, static_cast<float>(_sceneHeight) });
-						}
-					}
-					break;
-				case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
-					{
-						Trigger* trigger = dynamic_cast<Trigger*>(entity);
-						if (trigger->triggered) {
-							trigger->triggered = false;
-
-							_currentThemeID = static_cast<unsigned int>(AudioType::AUDIO_TYPE_BATTLE_MINIBOSS);
-						}
-					}
-					break;
+					_currentThemeID = static_cast<unsigned int>(AudioType::AUDIO_TYPE_BATTLE_MINIBOSS);
+				}
+			}
+			break;
 			}
 
 			if (entity->tookDamage) {

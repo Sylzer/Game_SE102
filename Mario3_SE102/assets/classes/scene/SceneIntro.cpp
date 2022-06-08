@@ -140,14 +140,6 @@ void SceneIntro::Update(DWORD deltaTime) {
 					_selectText->SetScale({ 1.0f, 1.0f });
 				}
 				break;
-			case GameObject::GameObjectType::GAMEOBJECT_TYPE_BUZZYBEETLE:
-				{
-					BuzzyBeetle* buzzyBeetle = dynamic_cast<BuzzyBeetle*>(entity);
-					if (time >= 0 && time < 7400) {
-						buzzyBeetle->SetVelocity({ 0.0f, 0.0f });
-					}
-				}
-				break;
 			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPMARIO:
 			case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPLUIGI:
 				if (time >= 0 && time < 1758) {

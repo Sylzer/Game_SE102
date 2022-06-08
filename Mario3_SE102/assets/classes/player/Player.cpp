@@ -156,8 +156,9 @@ void Player::_HandleMovementGame() {
 	if (Device::IsKeyDown(DIK_LEFTARROW) || Device::IsKeyDown(DIK_RIGHTARROW)) {
 		// GO FAST
 		if (Device::IsKeyDown(DIK_S) && (_isOnGround || !IsFlying())) {
+	
 			if (_acceleration < _MAX_ACCEL) {
-				_acceleration += 0.3f;
+				_acceleration += 0.04f;
 			}
 		}
 		else {
@@ -172,7 +173,7 @@ void Player::_HandleMovementGame() {
 
 	//Float a bit longer when flying
 	if (_acceleration >= _ACCEL_THRESHOLD) {
-		_gravity = 0.0000013f;
+		_gravity = 0.0010f;
 	}
 }
 
@@ -181,7 +182,7 @@ Player::Player() {
 	_renderPriority = 0;
 
 	_runSpeed = 0.09f;
-	_jumpSpeed = 0.327f;
+	_jumpSpeed = 0.3f;
 	_bounceSpeed = 0.4f;
 	_gravity = 0.0025f;
 	_acceleration = 0.5f;
@@ -199,7 +200,7 @@ Player::Player() {
 	_heldEntity = nullptr;
 
 	_flyTime = 6000;
-	_inPipeTime = 600;
+	_inPipeTime = 2000;
 	_attackTime = 150;
 	_fireballCoolDownTime = 1000;
 	_invulnerableTime = 1000;
@@ -351,8 +352,9 @@ void Player::OnKeyDownGame(int keyCode) {
 				_position.y = ceil(_position.y + _CROUCH_HEIGHT_ADJUST);
 			}
 			break;
-		case DIK_A:
+		case DIK_S:
 			_isHolding = true;
+		case DIK_A:
 			//Fireball attack
 			if (_health == 3 && !_isCrouching) {
 				if (_fireballsCount < _FIREBALLS_LIMIT) {
@@ -370,7 +372,6 @@ void Player::OnKeyDownGame(int keyCode) {
 			//Tail attack
 			if (_health == 4 && !IsAttacking()) {
 				StartAttackTimer();
-
 				AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_TAILATTACK);
 			}
 			break;
@@ -624,55 +625,7 @@ void Player::HandleCollisionResult(
 				}
 			}
 			break;
-		case GameObjectType::GAMEOBJECT_TYPE_PODOBOO:
-			{
-				Podoboo* podoboo = dynamic_cast<Podoboo*>(eventEntity);
-				TakeDamage();
-			}
-			break;
-		case GameObjectType::GAMEOBJECT_TYPE_DRYBONES:
-			{
-				DryBones* dryBones = dynamic_cast<DryBones*>(eventEntity);
-				if (eventNormal.y == -1.0f) {
-					if (dryBones->GetHealth() == 3) {
-						_velocity.y = -_bounceSpeed;
 
-						dryBones->TakeDamage();
-
-						AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_BLOCKBREAK);
-					}
-				}
-				else if (eventNormal.x != 0.0f || eventNormal.y == 1.0f) {
-					if (dryBones->GetHealth() == 3) {
-						TakeDamage();
-						_velocity.y = -_bounceSpeed;
-					}
-				}
-			}
-			break;
-		case GameObjectType::GAMEOBJECT_TYPE_FORTRESSBOSS:
-			{
-				FortressBoss* fortressBoss = dynamic_cast<FortressBoss*>(eventEntity);
-				if (!(fortressBoss->IsInIntro() || fortressBoss->IsInvulnerable())) {
-					if (eventNormal.y == -1.0f) {
-						if (fortressBoss->GetHealth() == 3 && fortressBoss->IsAttacking()) {
-							TakeDamage();
-						}
-						else {
-							fortressBoss->TakeDamage();
-							_velocity.y = -_bounceSpeed;
-
-							AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_SQUISH);
-						}
-					}
-					else if (eventNormal.x != 0.0f || eventNormal.y == 1.0f) {
-						if (fortressBoss->GetHealth() > 0) {
-							TakeDamage();
-						}
-					}
-				}
-			}
-			break;
 	//----------------------------------------------------------------------------
 	//NPCs
 	//----------------------------------------------------------------------------
@@ -715,11 +668,6 @@ void Player::HandleCollisionResult(
 						}
 					}
 				}
-			}
-			break;
-		case GameObjectType::GAMEOBJECT_TYPE_MOVINGPLATFORM:
-			{
-				//Stub
 			}
 			break;
 	//----------------------------------------------------------------------------
@@ -884,26 +832,18 @@ void Player::HandleCollisionResult(
 					}
 				}
 				break;
-			case GameObjectType::GAMEOBJECT_TYPE_LAVAPOOL:
-				{
-					LavaPool* lavaPool = dynamic_cast<LavaPool*>(eventEntity);
-					if (eventNormal.x != 0.0f || eventNormal.y != 0.0f) {
-						_health = 1;
-						TakeDamage();
-					}
-				}
-				break;
 			case GameObjectType::GAMEOBJECT_TYPE_DOOR:
-				{
-					Door* door = dynamic_cast<Door*>(eventEntity);
-					if (Device::IsKeyDown(DIK_UPARROW)) {
-						_position = door->GetDestination();
+			{
+				Door* door = dynamic_cast<Door*>(eventEntity);
+				if (Device::IsKeyDown(DIK_UPARROW)) {
+					_position = door->GetDestination();
 
-						_wentIntoPipe = !_wentIntoPipe;
-						door->canTriggerMovingCeiling = !door->canTriggerMovingCeiling;
-					}
+					_wentIntoPipe = !_wentIntoPipe;
+					door->canTriggerMovingCeiling = !door->canTriggerMovingCeiling;
 				}
-				break;
+			}
+			break;
+
 	//----------------------------------------------------------------------------
 	//ANIMATED BLOCKS
 	//----------------------------------------------------------------------------
@@ -932,12 +872,6 @@ void Player::HandleCollisionResult(
 
 void Player::HandleOverlap(Entity* entity) {
 	switch (entity->GetObjectType()) {
-		case GameObjectType::GAMEOBJECT_TYPE_ROTODISC:
-			{
-				Rotodisc* rotodisc = dynamic_cast<Rotodisc*>(entity);
-				TakeDamage();
-			}
-			break;
 		case GameObjectType::GAMEOBJECT_TYPE_BONUSITEM:
 			{
 				BonusItem* bonusItem = dynamic_cast<BonusItem*>(entity);
@@ -962,18 +896,6 @@ void Player::HandleOverlap(Entity* entity) {
 
 				AudioService::GetAudio().StopAll();
 				AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_BATTLE_CLEAR);
-			}
-			break;
-		case GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
-			{
-				Trigger* trigger = dynamic_cast<Trigger*>(entity);
-				trigger->triggered = true;
-				trigger->SetPosition({ 0.0f, 0.0f });
-
-				lockCameraXAxis = true;
-
-				AudioService::GetAudio().StopAll();
-				AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_BATTLE_MINIBOSS);
 			}
 			break;
 	}

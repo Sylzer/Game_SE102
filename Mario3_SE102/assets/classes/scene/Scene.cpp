@@ -15,10 +15,10 @@ bool Scene::_IsEntityInViewport(Entity* entity, RECTF viewport) const {
 
 	float entityWidth = entity->GetPosition().x + entity->GetBoxWidth();
 	float entityHeight = entity->GetPosition().y + entity->GetBoxHeight();
-	if (entityWidth >= viewport.left && 
-		entityHeight >= viewport.top && 
-		entity->GetPosition().x <= viewport.right && 
-		entity->GetPosition().y <= viewport.bottom) 
+	if (entityWidth >= viewport.left &&
+		entityHeight >= viewport.top &&
+		entity->GetPosition().x <= viewport.right &&
+		entity->GetPosition().y <= viewport.bottom)
 	{
 		return true;
 	}
@@ -28,21 +28,21 @@ bool Scene::_IsEntityInViewport(Entity* entity, RECTF viewport) const {
 
 bool Scene::_IsEntityAliveAndIB(Entity* entity) const {
 	//Ignore the player and tail, door and ceiling
-	if (entity->GetObjectType() < GameObject::GameObjectType::GAMEOBJECT_TYPE_GOOMBA || 
-		entity->GetObjectType() == GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL || 
+	if (entity->GetObjectType() < GameObject::GameObjectType::GAMEOBJECT_TYPE_GOOMBA ||
+		entity->GetObjectType() == GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL ||
 		entity->GetObjectType() == GameObject::GameObjectType::GAMEOBJECT_TYPE_DOOR ||
-		entity->GetObjectType() == GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGCEILING) 
+		entity->GetObjectType() == GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGCEILING)
 	{
 		return  true;
 	}
 
 	float entityWidth = entity->GetPosition().x + entity->GetBoxWidth();
 	float entityHeight = entity->GetPosition().y + entity->GetBoxHeight();
-	if (entity->GetHealth() > -1 && 
-		(entityWidth >= 0 && 
-		entityHeight >= 0 && 
-		entity->GetPosition().x <= _sceneWidth && 
-		entity->GetPosition().y <= _sceneHeight)) 
+	if (entity->GetHealth() > -1 &&
+		(entityWidth >= 0 &&
+			entityHeight >= 0 &&
+			entity->GetPosition().x <= _sceneWidth &&
+			entity->GetPosition().y <= _sceneHeight))
 	{
 		return true;
 	}
@@ -55,8 +55,8 @@ unsigned int Scene::_GetNextThemeID() {
 	//This wasn't the result I sought after
 	//I needed something that could loop back to the first element when the container overflows
 	/*auto it = std::find_if(
-		_mainThemeIDs.begin(), 
-		_mainThemeIDs.end(), 
+		_mainThemeIDs.begin(),
+		_mainThemeIDs.end(),
 		[&](unsigned int ID) {
 			return ID == _currentThemeID;
 		}
@@ -78,13 +78,13 @@ unsigned int Scene::_GetNextThemeID() {
 Texture* Scene::_LoadTexture(LPCWSTR filePath) {
 	ID3D10Resource* resource = nullptr;
 	ID3D10Texture2D* texture = nullptr;
-	
+
 	HRESULT hResult = D3DX10CreateTextureFromFile(
-		GlobalUtil::directDevice, 
-		filePath, 
-		nullptr, 
-		nullptr, 
-		&resource, 
+		GlobalUtil::directDevice,
+		filePath,
+		nullptr,
+		nullptr,
+		&resource,
 		nullptr
 	);
 	if (FAILED(hResult)) {
@@ -200,7 +200,7 @@ void Scene::_ParseTextures(std::string line) {
 	}
 
 	unsigned int textureID = std::stoul(tokens.at(0));
-	
+
 	Texture* texture = _LoadTexture(GlobalUtil::ToLPCWSTR(tokens.at(1)));
 	_textureMap.insert(std::make_pair(textureID, texture));
 }
@@ -230,174 +230,150 @@ void Scene::_ParseEntityData(std::string line) {
 
 	Entity* entity = nullptr;
 	switch (objectType) {
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_MARIO:
-			_player = new Player;
-			_player->SetOjectType(objectType);
-			_player->ParseData(tokens.at(1), texture, extraData);
-			_player->SetPosition(position);
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_MARIO:
+		_player = new Player;
+		_player->SetOjectType(objectType);
+		_player->ParseData(tokens.at(1), texture, extraData);
+		_player->SetPosition(position);
 
-			_entities.emplace_back(_player);
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_LUIGI:
-			//Stub
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_GOOMBA:
-			entity = new Goomba;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAGOOMBA:
-			entity = new Paragoomba;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_KOOPA:
-			entity = new Koopa;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAKOOPA:
-			entity = new Parakoopa;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PIRANHAPLANT:
-			entity = new PiranaPlant;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSPLANT:
-			entity = new VenusPlant;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_BOOMERANGBRO:
-			entity = new BoomerBro;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PODOBOO:
-			entity = new Podoboo;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_DRYBONES:
-			entity = new DryBones;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_ROTODISC:
-			entity = new Rotodisc;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL:
-			entity = new Tail;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PORTAL:
-			entity = new Portal;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGPLATFORM:
-			//entity = new MovingPlatform;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
-			entity = new Mushroom;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_LEAF:
-			entity = new Leaf;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_STAR:
-			entity = new Star;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_COIN:
-			entity = new Coin;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_BONUSITEM:
-			entity = new BonusItem;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
-			entity = new Orb;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_QUESTIONBLOCK:
-			entity = new QuestionBlock;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_SHINYBRICK:
-			entity = new ShinyBrick;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
-			entity = new PBlock;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_LAVAPOOL:
-			entity = new LavaPool;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_DOOR:
-			entity = new Door;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_CACTUS:
-			entity = new Cactus;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_HELPTEXT:
-			entity = new HelpText;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_HAMMERBRO:
-			entity = new HammerBro;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_DIALGA:
-			entity = new Dialga;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PALKIA:
-			entity = new Palkia;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_GIRATINA:
-			entity = new Giratina;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_LOGO:
-			entity = new GameLogo;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_ICON:
-			entity = new GameIcon;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_SELECT:
-			_selectText = new SelectText;
-			_selectText->SetOjectType(objectType);
-			_selectText->ParseData(tokens.at(1), texture, extraData);
-			_selectText->SetPosition(position);
-			
-			_entities.emplace_back(_selectText);
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_CURTAIN:
-			entity = new Curtain;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPPLANT:
-			entity = new PropPlant;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_BUZZYBEETLE:
-			entity = new BuzzyBeetle;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPMARIO:
-			_propMario = new PropPlayer;
-			_propMario->SetOjectType(objectType);
-			_propMario->ParseData(tokens.at(1), texture, extraData);
-			_propMario->SetPosition(position);
+		_entities.emplace_back(_player);
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_LUIGI:
+		//Stub
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_GOOMBA:
+		entity = new Goomba;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAGOOMBA:
+		entity = new Paragoomba;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_KOOPA:
+		entity = new Koopa;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PARAKOOPA:
+		entity = new Parakoopa;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PIRANHAPLANT:
+		entity = new PiranaPlant;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSPLANT:
+		entity = new VenusPlant;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_BOOMERANGBRO:
+		entity = new BoomerBro;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL:
+		entity = new Tail;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PORTAL:
+		entity = new Portal;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGPLATFORM:
+		//entity = new MovingPlatform;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
+		entity = new Mushroom;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_LEAF:
+		entity = new Leaf;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_STAR:
+		entity = new Star;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_COIN:
+		entity = new Coin;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_BONUSITEM:
+		entity = new BonusItem;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
+		entity = new Orb;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_QUESTIONBLOCK:
+		entity = new QuestionBlock;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_SHINYBRICK:
+		entity = new ShinyBrick;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
+		entity = new PBlock;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_DOOR:
+		entity = new Door;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_CACTUS:
+		entity = new Cactus;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_HELPTEXT:
+		entity = new HelpText;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_HAMMERBRO:
+		entity = new HammerBro;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_LOGO:
+		entity = new GameLogo;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_ICON:
+		entity = new GameIcon;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_SELECT:
+		_selectText = new SelectText;
+		_selectText->SetOjectType(objectType);
+		_selectText->ParseData(tokens.at(1), texture, extraData);
+		_selectText->SetPosition(position);
 
-			_entities.emplace_back(_propMario);
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPLUIGI:
-			_propLuigi = new PropPlayer;
-			_propLuigi->SetOjectType(objectType);
-			_propLuigi->ParseData(tokens.at(1), texture, extraData);
-			_propLuigi->SetPosition(position);
+		_entities.emplace_back(_selectText);
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_CURTAIN:
+		entity = new Curtain;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPPLANT:
+		entity = new PropPlant;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_BUZZYBEETLE:
+		entity = new BuzzyBeetle;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPMARIO:
+		_propMario = new PropPlayer;
+		_propMario->SetOjectType(objectType);
+		_propMario->ParseData(tokens.at(1), texture, extraData);
+		_propMario->SetPosition(position);
 
-			_entities.emplace_back(_propLuigi);
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPFASTKOOPA:
-			entity = new PropFastKoopa;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPKOOPASHELL:
-			entity = new PropKoopaShell;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPNORMALKOOPA:
-			entity = new PropNormalKoopa;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_FORTRESSBOSS:
-			entity = new FortressBoss;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
-			entity = new Trigger;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_MASKTILE:
-			entity = new MaskTile;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGCEILING:
-			entity = new MovingCeiling;
-			break;
+		_entities.emplace_back(_propMario);
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPLUIGI:
+		_propLuigi = new PropPlayer;
+		_propLuigi->SetOjectType(objectType);
+		_propLuigi->ParseData(tokens.at(1), texture, extraData);
+		_propLuigi->SetPosition(position);
+
+		_entities.emplace_back(_propLuigi);
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPFASTKOOPA:
+		entity = new PropFastKoopa;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPKOOPASHELL:
+		entity = new PropKoopaShell;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PROPNORMALKOOPA:
+		entity = new PropNormalKoopa;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
+		entity = new Trigger;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_MASKTILE:
+		entity = new MaskTile;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_MOVINGCEILING:
+		entity = new MovingCeiling;
+		break;
 	}
 
 	if (entity != nullptr) {
 		entity->SetOjectType(objectType);
 		entity->ParseData(tokens.at(1), texture, extraData);
 		entity->SetPosition(position);
-		
+
 		_entities.emplace_back(entity);
 	}
 }
@@ -420,12 +396,12 @@ void Scene::_ParseTileData(std::string line) {
 	hitbox.top = -8.0f;
 	hitbox.right = std::stof(tokens.at(3));
 	hitbox.bottom = std::stof(tokens.at(4));
-	
+
 	Tile* tile = new Tile;
 	tile->SetOjectType(objectType);
 	tile->SetPosition(position);
 	tile->AddHitbox(hitbox);
-	
+
 	_tiles.emplace_back(tile);
 }
 
@@ -564,41 +540,41 @@ Entity* Scene::CreateEntityFromData(std::string objectID, std::string dataPath, 
 
 	switch (objectType) {
 		//Projectiles
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PLAYERFIREBALL:
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSFIREBALL:
-			entity = new Fireball;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_BOOMERANG:
-			entity = new Boomerang;
-			break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PLAYERFIREBALL:
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_VENUSFIREBALL:
+		entity = new Fireball;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_BOOMERANG:
+		entity = new Boomerang;
+		break;
 		//Items
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_GREENMUSHROOM:
-			entity = new Mushroom;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_LEAF:
-			entity = new Leaf;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_FLOWER:
-			entity = new Flower;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_COIN:
-			entity = new Coin;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
-			entity = new Orb;
-			break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_REDMUSHROOM:
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_GREENMUSHROOM:
+		entity = new Mushroom;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_LEAF:
+		entity = new Leaf;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_FLOWER:
+		entity = new Flower;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_COIN:
+		entity = new Coin;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORB:
+		entity = new Orb;
+		break;
 		//Animated blocks
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
-			entity = new PBlock;
-			break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_PBLOCK:
+		entity = new PBlock;
+		break;
 		//Effects
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_BRICKEFFECT:
-			entity = new BrickDebris;
-			break;
-		case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORBEFFECT:
-			entity = new OrbEffect;
-			break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_BRICKEFFECT:
+		entity = new BrickDebris;
+		break;
+	case GameObject::GameObjectType::GAMEOBJECT_TYPE_ORBEFFECT:
+		entity = new OrbEffect;
+		break;
 	}
 
 	entity->SetOjectType(objectType);
@@ -719,45 +695,45 @@ void Scene::LoadScene() {
 		}
 
 		switch (sceneFileSection) {
-			case _SceneFileSection::SCENEFILE_SECTION_MAINTHEMES:
-				_ParseMainThemes(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_SCENESIZE:
-				_ParseSceneSize(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_SCENETIME:
-				_ParseSceneTime(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_CAMERALOCKVALUE:
-				_ParseCameraLockValue(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_CAMERABOUNDS:
-				_ParseCameraBounds(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_BGCOLOR:
-				_ParseBackgroundColor(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_TEXTURES:
-				_ParseTextures(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_ENTITYDATA:
-				_ParseEntityData(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_TILEDATA:
-				_ParseTileData(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_GRID:
-				_ParseGrid(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_HUD:
-				_ParseHUD(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_MAINEFFECT:
-				_ParseMainEffect(line);
-				break;
-			case _SceneFileSection::SCENEFILE_SECTION_BACKGROUND:
-				_ParseBackground(line);
-				break;
+		case _SceneFileSection::SCENEFILE_SECTION_MAINTHEMES:
+			_ParseMainThemes(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_SCENESIZE:
+			_ParseSceneSize(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_SCENETIME:
+			_ParseSceneTime(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_CAMERALOCKVALUE:
+			_ParseCameraLockValue(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_CAMERABOUNDS:
+			_ParseCameraBounds(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_BGCOLOR:
+			_ParseBackgroundColor(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_TEXTURES:
+			_ParseTextures(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_ENTITYDATA:
+			_ParseEntityData(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_TILEDATA:
+			_ParseTileData(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_GRID:
+			_ParseGrid(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_HUD:
+			_ParseHUD(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_MAINEFFECT:
+			_ParseMainEffect(line);
+			break;
+		case _SceneFileSection::SCENEFILE_SECTION_BACKGROUND:
+			_ParseBackground(line);
+			break;
 		}
 	}
 
