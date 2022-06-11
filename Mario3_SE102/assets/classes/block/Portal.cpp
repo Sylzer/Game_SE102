@@ -17,7 +17,27 @@ unsigned int Portal::GetSceneID() const {
 	return std::stoul(_extraData.front());
 }
 
+D3DXVECTOR2 Portal::GetDestination() const {
+	return _destination;
+}
 
+void Portal::ParseData(
+	std::string dataPath,
+	Texture*& texture,
+	std::vector<std::string> extraData)
+{
+	if (_portalTexture == nullptr) {
+		_portalTexture = texture;
+	}
+	Entity::ParseData(dataPath, texture, extraData);
+
+	if (_extraData.size() > 1) {
+		float destX = std::stof(_extraData.at(0));
+		float destY = std::stof(_extraData.at(1));
+
+		_destination = { destX, destY };
+	}
+}
 
 void Portal::HandleStates() {}
 
