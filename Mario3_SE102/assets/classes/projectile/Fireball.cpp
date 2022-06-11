@@ -11,10 +11,10 @@ void Fireball::_ParseSprites(std::string line) {
 
 Fireball::Fireball() {
 	_renderPriority = 2;
-	_removeTime = 400;
+	_removeTime = 300;
 
-	_travelSpeed = 0.001f;
-	_bounceSpeed = 0.1f;
+	_travelSpeed = 0.0012f;
+	_bounceSpeed = 0.2f;
 	_gravity = 0.002f;
 
 	_aliveTime = 8000;
@@ -84,6 +84,29 @@ void Fireball::HandleCollisionResult(
 			}
 
 			switch (eventEntity->GetObjectType()) {
+				case GameObjectType::GAMEOBJECT_TYPE_GOOMBA:
+				case GameObjectType::GAMEOBJECT_TYPE_PARAGOOMBA:
+				case GameObjectType::GAMEOBJECT_TYPE_KOOPA:
+				case GameObjectType::GAMEOBJECT_TYPE_PARAKOOPA:
+					eventEntity->SetHealth(0);
+					eventEntity->SetScale({ 1.0f, -1.0f });
+					eventEntity->SetVelocity({ 0.0f, -_bounceSpeed });
+
+					AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_KICK);
+					break;
+				case GameObjectType::GAMEOBJECT_TYPE_VENUSFIREBALL:
+				
+					TakeDamage();
+					break;
+				case GameObjectType::GAMEOBJECT_TYPE_COIN:
+					{
+						Coin* coin = dynamic_cast<Coin*>(eventEntity);
+						if (coin->GetHealth() == 3 && eventNormal.x != 0.0f) {
+							coin->SetHealth(-1);
+							TakeDamage();
+						}
+					}
+					break;
 				
 				case GameObjectType::GAMEOBJECT_TYPE_QUESTIONBLOCK:
 					{
