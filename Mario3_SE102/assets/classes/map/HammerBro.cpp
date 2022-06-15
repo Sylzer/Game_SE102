@@ -48,10 +48,10 @@ void HammerBro::Update(
 	Entity::Update(deltaTime);
 
 	if (_position.x <= _originalPos.x - X_OFFSET) {
-		_normal.x = 2.0f;
+		_normal.x = 1.0f;
 	}
 	else if (_position.x >= _originalPos.x + X_OFFSET) {
-		_normal.x = -2.0f;
+		_normal.x = -1.0f;
 	}
 	_scale.x = _normal.x;
 }
