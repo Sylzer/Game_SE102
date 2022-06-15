@@ -3,7 +3,7 @@ Super Mario Bros 3 (NES).
 
 DirectX 10.
 
-Contents: Intro, Scene Map World 1 (grassland) , Full Stage 1-1.
+**Contents: Intro, Scene Map World 1 (grassland) , Full Stage 1-1.**
 
 Linker > Input > Additional Dependencies: d3d10.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;sfml-system-d.lib;sfml-audio-d.lib;.
 
