@@ -1,0 +1,73 @@
+[SCENESIZE]
+256	224
+[/]
+
+[BGCOLOR]
+0	0	0
+[/]
+
+[TEXTURES]
+0	assets\textures\titlescreen.png
+1	assets\textures\player.png
+2	assets\textures\enemies.png
+3	assets\textures\items.png
+[/]
+
+[ENTITYDATA]
+#Goomba
+100	assets\data\npc\goomba_yellow.txt	2	80	-16
+
+#Mushroom
+200	assets\data\item\shroom_red.txt	3	40	0
+
+#Leaf
+202	assets\data\item\leaf.txt	3	115	-190
+
+#Star
+204	assets\data\item\star.txt	3	200	-16
+
+#Logo
+500	assets\data\intro\logo.txt	0	115	-60
+
+#Icon
+501	assets\data\intro\icon.txt	0	128	98
+
+#Select text
+502	assets\data\intro\selecttext.txt	0	121	128
+
+#Curtain
+503	assets\data\intro\curtain.txt	0	128	70
+
+#Prop plant
+504	assets\data\intro\propplant_left.txt	0	20	100
+504	assets\data\intro\propplant_right.txt	0	220	100
+
+#Buzzy
+505	assets\data\intro\buzzybeetle.txt	0	175	-16
+
+#Prop player
+506	assets\data\player\mario.txt	1	240	125
+507	assets\data\player\luigi.txt	1	0	125
+
+#Fast koopa
+508	assets\data\npc\koopa_green.txt	2	-242	134
+
+#Koopa shell
+509	assets\data\npc\koopa_green.txt	2	115	-32
+
+#Normal koopa
+510	assets\data\npc\koopa_green.txt	2	-50	134
+510	assets\data\npc\koopa_green.txt	2	-114	134
+510	assets\data\npc\koopa_green.txt	2	-178	134
+[/]
+
+[TILEDATA]
+777	-100	155	400	37
+777	270	125	16	32
+[/]
+
+[BACKGROUND]
+0
+#Floor
+0	0	256	224	120	74
+[/]

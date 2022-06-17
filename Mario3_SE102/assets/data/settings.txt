@@ -1,0 +1,13 @@
+
+
+[SETTINGS]
+default	0
+[/]
+
+[SCENES]
+0	assets\data\start_screen.txt
+
+#World 1
+10	assets\data\overworld_1\map.txt
+11	assets\data\overworld_1\stage_one.txt
+[/]
