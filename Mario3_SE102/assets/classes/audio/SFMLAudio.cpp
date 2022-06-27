@@ -25,19 +25,12 @@ void SFMLAudio::Initialize() {
 	AddAudio(AudioType::AUDIO_TYPE_INTRO, "assets\\audio\\songs\\Intro.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_MAP, "assets\\audio\\songs\\GrassLand.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_STAGE_1_1, "assets\\audio\\songs\\LevelTheme1.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_STAGE_SECRETAREA, "assets\\audio\\songs\\SecretArea.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_STAGE_FORTRESS, "assets\\audio\\songs\\MiniFortress.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_STAGE_PCOIN, "assets\\audio\\songs\\PCoin.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_STAGE_HURRY, "assets\\audio\\songs\\HurryUp.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_STAGE_END, "assets\\audio\\songs\\LevelClear.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_UNIVERSE, "assets\\audio\\songs\\Creation.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_DISTORTION, "assets\\audio\\songs\\Distortion.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_BATTLE_MINIBOSS, "assets\\audio\\battles\\MiniBoss.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_BATTLE_CLEAR, "assets\\audio\\battles\\BossClear.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_1UP, "assets\\audio\\sfx\\1UP.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_1UPGLITCH, "assets\\audio\\sfx\\1UpGlitch.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_BLOCKBREAK, "assets\\audio\\sfx\\Block Break.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_BOOMERANG, "assets\\audio\\sfx\\Boomerang.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_BUMP, "assets\\audio\\sfx\\Bump.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_COIN, "assets\\audio\\sfx\\Coin.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_DEATH, "assets\\audio\\sfx\\Death.ogg");
@@ -56,9 +49,6 @@ void SFMLAudio::Initialize() {
 	AddAudio(AudioType::AUDIO_TYPE_TAILATTACK, "assets\\audio\\sfx\\Tail Attack.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_PMETER, "assets\\audio\\sfx\\PMeter.ogg");
 	AddAudio(AudioType::AUDIO_TYPE_THWOMP, "assets\\audio\\sfx\\Thwomp.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_TIME, "assets\\audio\\sfx\\Time.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_SPACE, "assets\\audio\\sfx\\Space.ogg");
-	AddAudio(AudioType::AUDIO_TYPE_ANTIMATTER, "assets\\audio\\sfx\\Antimatter.ogg");
 }
 
 void SFMLAudio::PlayAudio(AudioType type, bool loop, float pitch, float volume) {	
