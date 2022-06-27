@@ -42,6 +42,7 @@ private:
 	const float _CROUCH_HEIGHT_ADJUST = 8.0f;
 
 	unsigned int _lives;
+	unsigned int _countDeath = 0;
 	unsigned int _coins;
 	unsigned int _score;
 
@@ -112,7 +113,9 @@ public:
 	void GetSceneRemainingTime(unsigned int);
 
 	void SetUpVector(float);
-
+	//void SetLives();
+	int CurrentLives();
+	void CountDeath();
 	bool TriggeredStageEnd() const;
 	bool WentIntoPipe() const;
 	bool IsFlying() const;
