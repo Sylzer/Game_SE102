@@ -12,7 +12,12 @@ SceneIntro::~SceneIntro() {}
 
 void SceneIntro::OnKeyDown(int keyCode) {
 	switch (keyCode) {
-		case DIK_F:
+		case DIK_DOWNARROW:
+			_selectText->isMultiplayer = !_selectText->isMultiplayer;
+
+			AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_MAPMOVE);
+			break;
+		case DIK_UPARROW:
 			_selectText->isMultiplayer = !_selectText->isMultiplayer;
 
 			AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_MAPMOVE);
@@ -467,7 +472,7 @@ void SceneIntro::Update(DWORD deltaTime) {
 
 	if (IsTransitioningToScene() && GetTickCount64() - _toSceneStart > _toSceneTime) {
 		_toSceneStart = 0;
-		SceneManager::GetInstance()->ChangeScene(static_cast<unsigned int>(_selectText->isMultiplayer ? SceneType::SCENE_TYPE_SECRET : SceneType::SCENE_TYPE_MAP));
+		SceneManager::GetInstance()->ChangeScene(static_cast<unsigned int>(_selectText->isMultiplayer ? SceneType::SCENE_TYPE_MAP : SceneType::SCENE_TYPE_MAP));
 	}
 }
 
