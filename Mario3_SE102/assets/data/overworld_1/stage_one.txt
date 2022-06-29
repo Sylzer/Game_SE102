@@ -125,7 +125,7 @@
 300	assets\data\block\questionblock.txt	0	176	352	205	assets\data\item\coin.txt	5
 300	assets\data\block\questionblock.txt	0	192	352	205	assets\data\item\coin.txt	5
 300	assets\data\block\questionblock.txt	0	224	304	205	assets\data\item\coin.txt	5
-300	assets\data\block\questionblock.txt	0	240	304	200	assets\data\item\shroom_red.txt	5	202	assets\data\item\leaf.txt	5
+300	assets\data\block\questionblock.txt	0	240	304	200	assets\data\item\shroom_red.txt	5	203	assets\data\item\flower.txt	5
 300	assets\data\block\questionblock.txt	0	416	320	205	assets\data\item\coin.txt	5
 300	assets\data\block\questionblock.txt	0	656	384	200	assets\data\item\shroom_red.txt	5	202	assets\data\item\leaf.txt	5
 300	assets\data\block\questionblock.txt	0	704	352	205	assets\data\item\coin.txt	5

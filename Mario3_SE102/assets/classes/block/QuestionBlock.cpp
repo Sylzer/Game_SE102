@@ -37,8 +37,9 @@ Entity* QuestionBlock::SpawnItem(int currentHealth) {
 	//3 - Coin
 	//6 - HP: 1 -> RMushroom
 	//    HP: 2, 3, 4 -> Leaf
-
-	switch (_extraData.size()) {
+	//small mario spawn red mushroom, big spawn flower
+	switch (_extraData.size()) 
+	{
 		case 3:
 			//Coin
 			item = SceneManager::GetInstance()->GetCurrentScene()->CreateEntityFromData(
@@ -53,8 +54,8 @@ Entity* QuestionBlock::SpawnItem(int currentHealth) {
 			AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_COIN);
 			break;
 		case 6:
-			//Cannot think of a more elegant solution, too tired
-			if (currentHealth >= 2) {
+			if (currentHealth >= 2) 
+			{
 				//Transformation item
 				item = SceneManager::GetInstance()->GetCurrentScene()->CreateEntityFromData(
 					_extraData.at(3),
@@ -70,8 +71,9 @@ Entity* QuestionBlock::SpawnItem(int currentHealth) {
 
 					AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_MUSHROOMAPPEARS);
 				}
-			}
-			else {
+			}			
+			else 
+			{
 				//Mushroom
 				item = SceneManager::GetInstance()->GetCurrentScene()->CreateEntityFromData(
 					_extraData.at(0),
@@ -84,6 +86,7 @@ Entity* QuestionBlock::SpawnItem(int currentHealth) {
 				AudioService::GetAudio().PlayAudio(AudioType::AUDIO_TYPE_MUSHROOMAPPEARS);
 			}
 			break;
+			
 	}
 
 	_extraData.clear();
