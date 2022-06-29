@@ -55,7 +55,14 @@ void ScenePlay::OnKeyDown(int keyCode) {
 			break;
 		case DIK_5:
 				_player->SetPosition({ _player->GetPosition().x+300, _player->GetPosition().y - _player->GetBoxHeight(1) });
+				break;
+		case DIK_R:		
+				_toSceneStart = 0;
+				SceneManager::GetInstance()->ChangeScene(static_cast<unsigned int>(SceneType::SCENE_TYPE_STAGE_ONE));
+		
+			break;
 			
+
 	}
 
 	_player->OnKeyDownGame(keyCode);
@@ -242,20 +249,7 @@ void ScenePlay::Update(DWORD deltaTime) {
 				}
 			}
 			break;
-			case GameObject::GameObjectType::GAMEOBJECT_TYPE_DRYBONES:
-			{
-				DryBones* dryBones = dynamic_cast<DryBones*>(entity);
-				if (dryBones->GetHealth() == 2) {
-					//Mario is on the right side
-					if (dryBones->GetPosition().x - _player->GetPosition().x < 0.0f) {
-						dryBones->SetScale({ -1.0f, dryBones->GetScale().y });
-					}
-					else {
-						dryBones->SetScale({ 1.0f, dryBones->GetScale().y });
-					}
-				}
-			}
-			break;
+
 			case GameObject::GameObjectType::GAMEOBJECT_TYPE_TAIL:
 			{
 				const float OFFSET = 4.0f;
@@ -359,8 +353,7 @@ void ScenePlay::Update(DWORD deltaTime) {
 				}
 			}
 			break;
-
-			case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
+		/*	case GameObject::GameObjectType::GAMEOBJECT_TYPE_TRIGGER:
 			{
 				Trigger* trigger = dynamic_cast<Trigger*>(entity);
 				if (trigger->triggered) {
@@ -369,7 +362,8 @@ void ScenePlay::Update(DWORD deltaTime) {
 					_currentThemeID = static_cast<unsigned int>(AudioType::AUDIO_TYPE_BATTLE_MINIBOSS);
 				}
 			}
-			break;
+			break;*/
+
 			}
 
 			if (entity->tookDamage) {
@@ -388,14 +382,6 @@ void ScenePlay::Update(DWORD deltaTime) {
 				}
 			}
 
-			//I manage to bring down the time complexity from O(n^3) to O(n^2)
-			//Reason is how the grid system handles removal
-			//Instead of using std::erase(std::remove()) which takes O(n)
-			//I use vector swap & pop
-			//Since vector insertion and removal from the front and back is constant time O(1)
-			//But I can't remove this bottom line here to bring it down to O(n)
-			//For some reason the particles won't render if I try to remove them outside of the loop
-			//Faster machines may handle O(n^2) complexity but slower ones will definitely have some trouble
 			if (!_IsEntityAliveAndIB(entity)) {
 				if (_grid != nullptr) {
 					_grid->RemoveEntity(entity);
@@ -424,21 +410,26 @@ void ScenePlay::Update(DWORD deltaTime) {
 
 	_background->Update();
 
-	if (_player->TriggeredStageEnd() || _player->GetHealth() == 0 || _sceneTime == 0) {
-		//Warp back to map				
+	if (_player->TriggeredStageEnd() || _player->GetHealth() == 0  ||_sceneTime == 0)
+	{
+		//Warp back				
 		if (!IsTransitioningToScene()) {
 			StartToSceneTimer();
 
 			_player->GetSceneRemainingTime(_sceneTime);
 
 			_sceneTime = 0;
+
+
 		}
 
 		if (IsTransitioningToScene() && GetTickCount64() - _toSceneStart > _toSceneTime) {
 			_toSceneStart = 0;
 			SceneManager::GetInstance()->ChangeScene(static_cast<unsigned int>(SceneType::SCENE_TYPE_MAP));
 		}
+
 	}
+
 }
 
 void ScenePlay::Render() {	
